@@ -5,7 +5,7 @@
         "id": "rocketchat",
         "type": "nodejs",
         "version": "0.52.0",
-        "logo": "http://jps.layershift.com/rocketchat/images/rocket.png",
+        "logo": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/images/rocket.png",
         "description": "Rocket.Chat is a Web Chat Server, developed in JavaScript, using the Meteor fullstack framework.<br><br>It is a great solution for communities and companies wanting to privately host their own chat service or for developers looking forward to build and evolve their own chat platforms.",
         "env": {
             "topology": {
@@ -68,7 +68,7 @@
                         "deploy": [{
                                 "name": "Rocket Chat",
                                 "context": "ROOT",
-                                "archive": "http://jps.layershift.com/rocketchat/rocketchat.tar.gz"
+                                "archive": "https://github.com/layershift/rocketchat-jps/raw/master/deployment/rocketchat.tar.gz"
                             }
                         ]
                     }
@@ -84,12 +84,12 @@
                                         "yum install -q -y GraphicsMagick python-setuptools > /dev/null 2>&1",
                                         "easy_install -q supervisor 2>&1",
                                         "npm install --loglevel silent -g inherits n > /dev/null 2>&1",
-                                        "wget -q -O /opt/repo/supervisord.conf http://jps.layershift.com/rocketchat/supervisord 2>&1",
-                                        "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini http://jps.layershift.com/rocketchat/rocketchat 2>&1",
+                                        "wget -q -O /opt/repo/supervisord.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/supervisord 2>&1",
+                                        "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rocketchat 2>&1",
                                         "chown -R jelastic: /opt/repo/supervisord.conf /opt/repo/supervisor.d",
-                                        "wget -q -O /etc/init.d/supervisord http://jps.layershift.com/rocketchat/init 2>&1",
+                                        "wget -q -O /etc/init.d/supervisord https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/init 2>&1",
                                         "chmod +x /etc/init.d/supervisord",
-                                        "wget -q -O /etc/sysconfig/iptables http://jps.layershift.com/rocketchat/iptables 2>&1",
+                                        "wget -q -O /etc/sysconfig/iptables https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/iptables 2>&1",
                                         "iptables-restore < /etc/sysconfig/iptables",
                                         "systemctl enable supervisord 2>&1"
                                 ]
@@ -117,7 +117,7 @@
                                 "commands": [
                                         "/etc/init.d/mongod stop > /dev/null 2>&1",
                                         "rm -rf /var/lib/mongo/* > /dev/null 2>&1",
-                                        "wget -q -O /etc/mongod.conf http://jps.layershift.com/rocketchat/mongo 2>&1",
+                                        "wget -q -O /etc/mongod.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/mongo 2>&1",
                                         "chown mongod:mongod /etc/mongod.conf 2>&1",
                                         "sudo /etc/init.d/mongod start > /dev/null 2>&1"
                                 ]
