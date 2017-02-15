@@ -58,7 +58,7 @@
             "call": [
                     "deployRocketChat",
                     "configureRocketChat",
-                    "configureMongo2",
+                    "configureMongo",
                     "startRocketChat"
             ]
         },
@@ -109,39 +109,7 @@
                     }
                 ]
             }, {
-                "id": "configureMongo1",
-                "onCall": [{
-                        "executeShellCommands": [{
-                                "nodeMission": "nosqldb",
-                                "user": "root",
-                                "commands": [
-                                        "/etc/init.d/mongod stop > /dev/null 2>&1",
-                                        "rm -rf /var/lib/mongo/* > /dev/null 2>&1",
-                                        "wget -q -O /etc/mongod.conf http://jps.layershift.com/rocketchat/mongo 2>&1",
-                                        "wget -q -O /tmp/script.sh http://jps.layershift.com/rocketchat/js_script 2>&1",
-                                        "killall mongod 2>&1",
-                                        "rm -rf /var/lib/mongo/* > /dev/null 2>&1"
-                                ]
-                                }, {
-                                "nodeMission": "nosqldb",
-                                "user": "jelastic",
-                                "commands": [
-                                        "mongod --replSet rs0 --config /etc/mongod.conf --dbpath /var/lib/mongo/ --port 27017 2>&1"
-                                ]
-                                }, {
-                                "nodeMission": "nosqldb",
-                                "user": "root",
-                                "commands": [
-                                        "/bin/bash /tmp/script.sh ${nodes.nosqldb[0].password} > /dev/null 2>&1",
-                                        "killall mongod 2>&1",
-                                        "sudo /etc/init.d/mongod start > /dev/null 2>&1"
-                                ]
-                                }
-                        ]
-                    }
-                ]
-            }, {
-                "id": "configureMongo2",
+                "id": "configureMongo",
                 "onCall": [{
                         "executeShellCommands": [{
                                 "nodeMission": "nosqldb",

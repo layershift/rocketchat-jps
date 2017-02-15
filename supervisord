@@ -1,0 +1,24 @@
+[unix_http_server]
+file=/tmp/supervisor.sock   ; (the path to the socket file)
+chmod=0777                 ; socket file mode (default 0700)
+chown=jelastic:jelastic       ; socket file uid:gid owner
+
+[supervisord]
+logfile=/opt/repo/logs/supervisord.log ; (main log file;default $CWD/supervisord.log)
+logfile_maxbytes=50MB        ; (max main logfile bytes b4 rotation;default 50MB)
+logfile_backups=10           ; (num of main logfile rotation backups;default 10)
+loglevel=info                ; (log level;default info; others: debug,warn,trace)
+pidfile=/tmp/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+nodaemon=false               ; (start in foreground if true;default false)
+minfds=1024                  ; (min. avail startup file descriptors;default 1024)
+minprocs=200                 ; (min. avail process descriptors;default 200)
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
+history_file=~/.sc_history  ; use readline history if available
+
+[include]
+files = /opt/repo/supervisor.d/*.ini
