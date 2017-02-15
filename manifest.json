@@ -68,7 +68,7 @@
                         "deploy": [{
                                 "name": "Rocket Chat",
                                 "context": "ROOT",
-                                "archive": "https://github.com/layershift/rocketchat-jps/raw/master/deployment/rocketchat.tar.gz"
+                                "archive": "http://jps.layershift.com/rocketchat/rocketchat.tar.gz"
                             }
                         ]
                     }
