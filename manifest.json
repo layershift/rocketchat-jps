@@ -1,0 +1,194 @@
+{
+    "jpsType": "install",
+    "application": {
+        "name": "Rocket Chat",
+        "id": "rocketchat",
+        "type": "nodejs",
+        "version": "0.52.0",
+        "logo": "http://jps.layershift.com/rocketchat/images/rocket.png",
+        "description": "Rocket.Chat is a Web Chat Server, developed in JavaScript, using the Meteor fullstack framework.<br><br>It is a great solution for communities and companies wanting to privately host their own chat service or for developers looking forward to build and evolve their own chat platforms.",
+        "env": {
+            "topology": {
+                "engine": "nodejs4.5",
+                "nodes": [{
+                        "nodeType": "nginx",
+                        "extip": false,
+                        "count": 1,
+                        "fixedCloudlets": 1,
+                        "flexibleCloudlets": 8,
+                        "displayName": "Nginx Proxy",
+                        "nodeGroup": "bl"
+                    }, {
+                        "nodeType": "nodejs",
+                        "extip": false,
+                        "count": 1,
+                        "fixedCloudlets": 1,
+                        "flexibleCloudlets": 16,
+                        "displayName": "Rocket Chat application",
+                        "nodeGroup": "cp"
+                    }, {
+                        "nodeType": "mongodb",
+                        "extip": false,
+                        "count": 1,
+                        "fixedCloudlets": 1,
+                        "flexibleCloudlets": 16,
+                        "displayName": "MongoDB",
+                        "nodeGroup": "nosqldb"
+                    }
+                ]
+            },
+            "onAfterRestartNode[nodeType:nodejs]": {
+                "call": [
+                        "stopRocketChat",
+                        "startRocketChat"
+                ]
+            },
+            "onAfterStart": {
+                "call": [
+                        "startRocketChat"
+                ]
+            },
+            "onBeforeStop": {
+                "call": [
+                        "stopRocketChat"
+                ]
+            }
+        },
+        "onInstall": {
+            "call": [
+                    "deployRocketChat",
+                    "configureRocketChat",
+                    "configureMongo2",
+                    "startRocketChat"
+            ]
+        },
+        "procedures": [{
+                "id": "deployRocketChat",
+                "onCall": [{
+                        "deploy": [{
+                                "name": "Rocket Chat",
+                                "context": "ROOT",
+                                "archive": "http://jps.layershift.com/rocketchat/rocketchat.tar.gz"
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "configureRocketChat",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeType": "nodejs",
+                                "user": "root",
+                                "commands": [
+                                        "yum install -q -y epel-release > /dev/null 2>&1",
+                                        "yum install -q -y GraphicsMagick python-setuptools > /dev/null 2>&1",
+                                        "easy_install -q supervisor 2>&1",
+                                        "npm install --loglevel silent -g inherits n > /dev/null 2>&1",
+                                        "wget -q -O /opt/repo/supervisord.conf http://jps.layershift.com/rocketchat/supervisord 2>&1",
+                                        "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini http://jps.layershift.com/rocketchat/rocketchat 2>&1",
+                                        "chown -R jelastic: /opt/repo/supervisord.conf /opt/repo/supervisor.d",
+                                        "wget -q -O /etc/init.d/supervisord http://jps.layershift.com/rocketchat/init 2>&1",
+                                        "chmod +x /etc/init.d/supervisord",
+                                        "wget -q -O /etc/sysconfig/iptables http://jps.layershift.com/rocketchat/iptables 2>&1",
+                                        "iptables-restore < /etc/sysconfig/iptables",
+                                        "systemctl enable supervisord 2>&1"
+                                ]
+                            }
+                        ]
+                    }, {
+                        "executeShellCommands": [{
+                                "nodeType": "nodejs",
+                                "user": "jelastic",
+                                "commands": [
+                                        "cd ~/ROOT/programs/server; npm --loglevel silent install > /dev/null 2>&1",
+                                        "sed -i \"s/ENV_URL/${env.domain}/\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO_IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "configureMongo1",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeMission": "nosqldb",
+                                "user": "root",
+                                "commands": [
+                                        "/etc/init.d/mongod stop > /dev/null 2>&1",
+                                        "rm -rf /var/lib/mongo/* > /dev/null 2>&1",
+                                        "wget -q -O /etc/mongod.conf http://jps.layershift.com/rocketchat/mongo 2>&1",
+                                        "wget -q -O /tmp/script.sh http://jps.layershift.com/rocketchat/js_script 2>&1",
+                                        "killall mongod 2>&1",
+                                        "rm -rf /var/lib/mongo/* > /dev/null 2>&1"
+                                ]
+                                }, {
+                                "nodeMission": "nosqldb",
+                                "user": "jelastic",
+                                "commands": [
+                                        "mongod --replSet rs0 --config /etc/mongod.conf --dbpath /var/lib/mongo/ --port 27017 2>&1"
+                                ]
+                                }, {
+                                "nodeMission": "nosqldb",
+                                "user": "root",
+                                "commands": [
+                                        "/bin/bash /tmp/script.sh ${nodes.nosqldb[0].password} > /dev/null 2>&1",
+                                        "killall mongod 2>&1",
+                                        "sudo /etc/init.d/mongod start > /dev/null 2>&1"
+                                ]
+                                }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "configureMongo2",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeMission": "nosqldb",
+                                "user": "root",
+                                "commands": [
+                                        "/etc/init.d/mongod stop > /dev/null 2>&1",
+                                        "rm -rf /var/lib/mongo/* > /dev/null 2>&1",
+                                        "wget -q -O /etc/mongod.conf http://jps.layershift.com/rocketchat/mongo 2>&1",
+                                        "chown mongod:mongod /etc/mongod.conf 2>&1",
+                                        "sudo /etc/init.d/mongod start > /dev/null 2>&1"
+                                ]
+                                }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "startRocketChat",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeId": "${nodes.nodejs[0].id}",
+                                "user": "root",
+                                "commands": [
+                                        "systemctl --quiet restart supervisord 2>&1",
+                                        "supervisorctl -c /opt/repo/supervisord.conf restart rocketchat 2>&1"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "stopRocketChat",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeId": "${nodes.nodejs[0].id}",
+                                "user": "root",
+                                "commands": [
+                                        "supervisorctl -c /opt/repo/supervisord.conf stop rocketchat 2>&1",
+                                        "systemctl --quiet stop supervisord 2>&1"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "success": {
+            "text": "Success! Your Rocket Chat is ready!<br><br>You can start using your RocketChat by heading to ${env.url}<br><br>You can add Let's Encrypt SSL certificate right away with our add-on: https://github.com/jelastic-jps/lets-encrypt<br><br>Read more about our platform here: https://www.layershift.com/jelastic<br><br>Our documentation:<br>https://kb.layershift.com/<br>https://docs.jelastic.com/<br><br>Read more on RocketChat here: https://rocket.chat/features"
+        }
+    }
+}
