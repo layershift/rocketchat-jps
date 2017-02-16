@@ -32,3 +32,6 @@ DB     |   MongoDB 3.4   |           1                    |           1/16      
 
 [Deploy to Layershift Jelastic PaaS](http://jps.layershift.com/rocketchat/deploy.html)
 
+# LICENSE
+
+Licensed under GNU LGPLv3
