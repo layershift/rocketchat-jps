@@ -30,7 +30,7 @@ DB     |   MongoDB 3.4   |           1                    |           1/16      
 
 ## Deployment
 
-[!Deploy to Layershift Jelastic PaaS(images/layershift-install-3.png)](http://jps.layershift.com/rocketchat/deploy.html)
+[![Deploy to Layershift Jelastic PaaS](images/layershift-install-3.png)](http://jps.layershift.com/rocketchat/deploy.html)
 
 # LICENSE
 
