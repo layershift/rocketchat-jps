@@ -291,7 +291,7 @@
             }
         ],
         "success": {
-            "text": "Success! Your Rocket Chat is ready!<br><br>You can start using your RocketChat by heading to ${env.url}<br><br>You can add Let's Encrypt SSL certificate right away with our add-on: https://github.com/jelastic-jps/lets-encrypt<br><br>Read more about our platform here: https://www.bubbl.com/jelastic<br><br>Our documentation:<br>https://kb.bubbl.com/<br>https://docs.jelastic.com/<br><br>Read more on RocketChat here: https://rocket.chat/features"
+            "text": "Success! Your Rocket Chat is ready!<br><br>You can start using your RocketChat by heading to <a href=\"${env.url}\">${env.url}</a><br><br>You can add Let's Encrypt SSL certificate right away with our add-on: <a href=\"https://github.com/jelastic-jps/lets-encrypt\">https://github.com/jelastic-jps/lets-encrypt</a><br><br>Read more about our platform here: <a href=\"https://www.bubbl.com/jelastic\">https://www.bubbl.com/jelastic</a><br><br>Our documentation:<br><a href=\"https://kb.bubbl.com/\">https://kb.bubbl.com/</a><br><a href=\"https://docs.jelastic.com/\">https://docs.jelastic.com/</a><br><br>Read more on RocketChat here: https://rocket.chat/features"
         }
     }
 }
