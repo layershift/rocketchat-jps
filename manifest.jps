@@ -57,6 +57,11 @@
                 "call": [
                         "stopRocketChat"
                 ]
+            },
+            "onAfterRemoveNode": {
+                "call": [
+                        "reapplyCPNodes",
+                ]
             }
         },
         "onInstall": {
