@@ -10,7 +10,7 @@ The JPS package will deploy [Rocket.Chat](https://github.com/RocketChat/Rocket.C
 
 * 1 nginx balancer to handle SSL and traffic
 * 2 node.js containers with application itself
-* 1 MongoDB ReplicaSet instance
+* 1 MongoDB ReplicaSet instance (3 MongoDB servers)
 
 ### Specifics
 
@@ -31,6 +31,8 @@ DB     |   MongoDB 3.4   |           3                    |           1/16      
 Application layer is set to scale up to 6 indivirual Rocket.Chat instances if CPU load is higher than 70% over last 5 minutes.
 
 It will automatically scale down if load gets to lower than 10% of CPU usage over last 15 minutes to the original 2 application node setup.
+
+See more on autoscaling: https://docs.jelastic.com/automatic-vertical-scaling
 
 ---
 
