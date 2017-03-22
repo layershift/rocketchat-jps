@@ -60,7 +60,7 @@
             },
             "onAfterRemoveNode": {
                 "call": [
-                        "reapplyCPNodes",
+                        "reapplyCPNodes"
                 ]
             }
         },
@@ -165,7 +165,7 @@
                                 "nodeId": "${nodes.bl[0].id}",
                                 "commands": [
                                         "sed -ri \"s|${nodes.cp[0].address};|${nodes.cp[0].address}; server ${this.replacement};|g\" ${HOME}/nginx-jelastic.conf"
-                                ],
+                                ]
                             }, {
                                 "nodeId": "${nodes.bl[0].id}",
                                 "commands": [
