@@ -31,9 +31,9 @@ net:
 
 #operationProfiling:
 
-#replication:
-#  oplogSizeMB: 512
-#  replSetName: "rs0"
+replication:
+  oplogSizeMB: 512
+  replSetName: "rs0"
 
 #sharding:
 

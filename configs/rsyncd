@@ -1,0 +1,16 @@
+uid = root
+gid = root
+max connections = 24
+pid file = /var/run/rsyncd.pid
+log file = /var/log/rsync.log
+lock file = /var/run/rsync.lock
+use chroot = no
+port=52426
+
+[mongocerts]
+    path = /etc/mongo/
+    comment = Cert sync
+    secrets file = /etc/rsyncd.secrets
+    list = yes
+    read only = no
+    hosts allow = MONGO1, MONGO2
