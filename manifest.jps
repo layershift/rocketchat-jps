@@ -35,7 +35,12 @@
                         "displayName": "MongoDB Replica Set",
                         "nodeGroup": "nosqldb"
                     }
-                ]
+                ],
+                "onAfterCloneNodes": {
+                    "call": [
+                        "applyNewCPNode"
+                    ]
+                }
             },
             "onAfterRestartNode[nodeType:nodejs]": {
                 "call": [
@@ -58,6 +63,7 @@
             "call": [
                     "deployRocketChat",
                     "configureRocketChat",
+                    "enableAutoScaling",
                     "preConfigureMongo",
                     "configureMongo",
                     "startRocketChat"
@@ -107,6 +113,74 @@
                                         "sed -i \"s/MONGO2IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
                                         "sed -i \"s/MONGO3IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini"
                                 ]
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "enableAutoScaling",
+                "onCall": [{
+                    "executeScript": [{
+                            "description": "Enable AutoScaling trigger",
+                            "type": "javascript",
+                            "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/wordpress-cluster/scripts/enableScalingTrigger.js"
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "applyNewCPNode",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeId": "${nodes.bl[0].id}",
+                                "user": "root",
+                                "commands": [
+                                        "sed -ri \"s|${nodes.cp[0].address};|${nodes.cp[0].address}; server ${event.response.array.address};|g\" ${HOME}/nginx-jelastic.conf",
+                                        "sudo /etc/init.d/nginx reload 2>&1"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "reapplyCPNodes",
+                "onCall": [{
+                        "executeScript": {
+                                "description": "Configure balancers after remove compute node",
+                                "type": "javascript",
+                                "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/wordpress-cluster/scripts/ConfigCPAddress.js"
+                           }
+                       }
+                   ]
+            }, {
+                "id": "BLConfiguring",
+                "user": "root",
+                "onCall": [{
+                        "executeShellCommands": [{
+                                "nodeId": "${nodes.bl[0].id}",
+                                "commands": [
+                                        "sed -ri \"s|${nodes.cp[0].address};|${nodes.cp[0].address}; server ${this.replacement};|g\" ${HOME}/nginx-jelastic.conf"
+                                ],
+                            }, {
+                                "nodeId": "${nodes.bl[0].id}",
+                                "commands": [
+                                        "sudo /etc/init.d/nginx reload"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": "replace",
+                "onCall": [{
+                       "replaceInFile": [{
+                               "nodeId": "${this.nodeid}",
+                               "replacements": [{
+                                       "replacement": "${this.replacement}",
+                                       "pattern": "${this.pattern}"
+                                    }
+                                ],
+                                "path": "${this.path}"
                             }
                         ]
                     }
