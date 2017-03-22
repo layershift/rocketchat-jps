@@ -128,7 +128,7 @@
                     "executeScript": [{
                             "description": "Enable AutoScaling trigger",
                             "type": "javascript",
-                            "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/wordpress-cluster/scripts/enableScalingTrigger.js"
+                            "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/enableScalingTrigger.js"
                             }
                         ]
                     }
@@ -153,7 +153,7 @@
                         "executeScript": {
                                 "description": "Configure balancers after remove compute node",
                                 "type": "javascript",
-                                "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/wordpress-cluster/scripts/ConfigCPAddress.js"
+                                "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/ConfigCPAddress.js"
                            }
                        }
                    ]
