@@ -7,8 +7,8 @@ triger =hivext.local.exp.wrapRequest(new Trigger(APPID, SESSION));
 oRespTurnOn = triger.addTrigger({
     data : {
         "isEnabled": true,
-        "name": "hs-add-nginx",
-        "nodeType": "nginxphp",
+        "name": "hs-add-nodejs",
+        "nodeType": "nodejs",
         "nodeGroup": "cp",
         "period": 5,
         "condition": {
