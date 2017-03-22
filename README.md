@@ -24,7 +24,7 @@ DB     |   MongoDB 3.4   |           3                    |           1/16      
 * AS - Application server
 * DB - Database
 
-**Rocket.Chat version**: 0.52.0
+**Rocket.Chat version**: 0.54.0
 
 ## Automatic scaling
 
