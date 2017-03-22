@@ -103,9 +103,9 @@
                                 "commands": [
                                         "cd ~/ROOT/programs/server; npm --loglevel silent install > /dev/null 2>&1",
                                         "sed -i \"s/ENV_URL/${env.domain}/\" /opt/repo/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO1IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO2IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO3IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini"
+                                        "sed -i \"s/MONGO1IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO2IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO3IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini"
                                 ]
                             }
                         ]
