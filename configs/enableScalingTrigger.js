@@ -10,7 +10,7 @@ oRespTurnOn = triger.addTrigger({
         "name": "hs-add-nodejs",
         "nodeType": "nodejs",
         "nodeGroup": "cp",
-        "period": 5,
+        "period": 1,
         "condition": {
             "type": "GREATER",
             "value": 70,

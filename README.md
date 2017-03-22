@@ -28,7 +28,7 @@ DB     |   MongoDB 3.4   |           3                    |           1/16      
 
 ## Automatic scaling
 
-Application layer is set to scale up to 6 indivirual Rocket.Chat instances if CPU load is higher than 70% over last 5 minutes.
+Application layer is set to scale up to 6 indivirual Rocket.Chat instances if CPU load is higher than 70% over last 1 minute.
 
 It will automatically scale down if load gets to lower than 10% of CPU usage over last 15 minutes to the original 2 application node setup.
 
