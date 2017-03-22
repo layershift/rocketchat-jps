@@ -5,7 +5,7 @@
         "id": "rocketchat",
         "type": "nodejs",
         "version": "0.52.0",
-        "logo": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/images/rocket.png",
+        "logo": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/images/rocket.png",
         "description": "Rocket.Chat is a Web Chat Server, developed in JavaScript, using the Meteor fullstack framework.<br><br>It is a great solution for communities and companies wanting to privately host their own chat service or for developers looking forward to build and evolve their own chat platforms.",
         "env": {
             "topology": {
@@ -96,12 +96,12 @@
                                         "yum install -q -y GraphicsMagick python-setuptools > /dev/null 2>&1",
                                         "easy_install -q supervisor 2>&1",
                                         "npm install --loglevel silent -g inherits n > /dev/null 2>&1",
-                                        "wget -q -O /opt/repo/supervisord.conf https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/supervisord 2>&1",
-                                        "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/rocketchat 2>&1",
+                                        "wget -q -O /opt/repo/supervisord.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/supervisord 2>&1",
+                                        "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rocketchat 2>&1",
                                         "chown -R jelastic: /opt/repo/supervisord.conf /opt/repo/supervisor.d",
-                                        "wget -q -O /etc/init.d/supervisord https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/init 2>&1",
+                                        "wget -q -O /etc/init.d/supervisord https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/init 2>&1",
                                         "chmod +x /etc/init.d/supervisord",
-                                        "wget -q -O /etc/sysconfig/iptables https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/iptables 2>&1",
+                                        "wget -q -O /etc/sysconfig/iptables https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/iptables 2>&1",
                                         "iptables-restore < /etc/sysconfig/iptables",
                                         "systemctl enable supervisord 2>&1"
                                 ]
@@ -128,7 +128,7 @@
                     "executeScript": [{
                             "description": "Enable AutoScaling trigger",
                             "type": "javascript",
-                            "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/enableScalingTrigger.js"
+                            "script": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/enableScalingTrigger.js"
                             }
                         ]
                     }
@@ -153,7 +153,7 @@
                         "executeScript": {
                                 "description": "Configure balancers after remove compute node",
                                 "type": "javascript",
-                                "script": "https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/ConfigCPAddress.js"
+                                "script": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/ConfigCPAddress.js"
                            }
                        }
                    ]
@@ -197,7 +197,7 @@
                                 "nodeMission": "nosqldb",
                                 "user": "root",
                                 "commands": [
-                                        "wget -q -O /etc/rsyncd.secrets https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/rsyncd_secret",
+                                        "wget -q -O /etc/rsyncd.secrets https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rsyncd_secret",
                                         "chmod 400 /etc/rsyncd.secrets",
                                         "mkdir /etc/mongo"
                                 ]
@@ -205,7 +205,7 @@
                                 "nodeId": "${nodes.nosqldb[0].id}",
                                 "user": "root",
                                 "commands": [
-                                        "wget -q -O /etc/rsyncd.conf https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/rsyncd",
+                                        "wget -q -O /etc/rsyncd.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rsyncd",
                                         "openssl rand -base64 741 > /etc/mongo/mongodb.key",
                                         "chmod 600 /etc/mongo/mongodb.key",
                                         "chown -R mongod: /etc/mongo/",
@@ -237,7 +237,7 @@
                                 "nodeId": "${nodes.nosqldb[0].id}",
                                 "user": "jelastic",
                                 "commands": [
-                                        "wget -O /tmp/script.sh https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/script.sh 2>&1",
+                                        "wget -O /tmp/script.sh https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/script.sh 2>&1",
                                         "bash /tmp/script.sh ${nodes.nosqldb[0].address} ${nodes.nosqldb[1].address} ${nodes.nosqldb[2].address} ${nodes.nosqldb[0].password} 2>/dev/null 1>/dev/null"
                                 ]
                             }
@@ -253,7 +253,7 @@
                                 "commands": [
                                         "/etc/init.d/mongod stop > /dev/null 2>&1",
                                         "rm -rf /var/lib/mongo/* > /dev/null 2>&1",
-                                        "wget -q -O /etc/mongod.conf https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/mongo 2>&1",
+                                        "wget -q -O /etc/mongod.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/mongo 2>&1",
                                         "chown mongod:mongod /etc/mongod.conf 2>&1"
                                 ]
                             }
@@ -291,7 +291,7 @@
             }
         ],
         "success": {
-            "text": "Success! Your Rocket Chat is ready!<br><br>You can start using your RocketChat by heading to <a href=\"${env.url}\">${env.url}</a><br><br>You can add Let's Encrypt SSL certificate right away with our add-on: <a href=\"https://github.com/jelastic-jps/lets-encrypt\">https://github.com/jelastic-jps/lets-encrypt</a><br><br>Read more about our platform here: <a href=\"https://www.bubbl.com/jelastic\">https://www.bubbl.com/jelastic</a><br><br>Our documentation:<br><a href=\"https://kb.bubbl.com/\">https://kb.bubbl.com/</a><br><a href=\"https://docs.jelastic.com/\">https://docs.jelastic.com/</a><br><br>Read more on RocketChat here: https://rocket.chat/features"
+            "text": "Success! Your Rocket Chat is ready!<br><br>You can start using your RocketChat by heading to <a href=\"${env.url}\">${env.url}</a><br><br>You can add Let's Encrypt SSL certificate right away with our add-on: <a href=\"https://github.com/jelastic-jps/lets-encrypt\">https://github.com/jelastic-jps/lets-encrypt</a><br><br>Read more about our platform here: <a href=\"https://www.layershift.com/jelastic\">https://www.layershift.com/jelastic</a><br><br>Our documentation:<br><a href=\"https://kb.layershift.com/\">https://kb.layershift.com/</a><br><a href=\"https://docs.jelastic.com/\">https://docs.jelastic.com/</a><br><br>Read more on RocketChat here: https://rocket.chat/features"
         }
     }
 }
