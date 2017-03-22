@@ -103,7 +103,9 @@
                                 "commands": [
                                         "cd ~/ROOT/programs/server; npm --loglevel silent install > /dev/null 2>&1",
                                         "sed -i \"s/ENV_URL/${env.domain}/\" /opt/repo/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO_IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini"
+                                        "sed -i \"s/MONGO1IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO2IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO3IP/${nodes.nosqldb[0].address}/\" /opt/repo/supervisor.d/rocketchat.ini"
                                 ]
                             }
                         ]
@@ -118,10 +120,7 @@
                                 "commands": [
                                         "wget -q -O /etc/rsyncd.secrets https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/rsyncd_secret",
                                         "chmod 400 /etc/rsyncd.secrets",
-                                        "killall mongod",
-                                        "rm -rf /var/lib/mongo/* ",
-                                        "mkdir /etc/mongo",
-                                        "killall mongod"
+                                        "mkdir /etc/mongo"
                                 ]
                             }, {
                                 "nodeId": "${nodes.nosqldb[0].id}",
@@ -176,8 +175,7 @@
                                         "/etc/init.d/mongod stop > /dev/null 2>&1",
                                         "rm -rf /var/lib/mongo/* > /dev/null 2>&1",
                                         "wget -q -O /etc/mongod.conf https://raw.githubusercontent.com/bubbl/rocketchat-jps/master/configs/mongo 2>&1",
-                                        "chown mongod:mongod /etc/mongod.conf 2>&1",
-                                        "sudo /etc/init.d/mongod start > /dev/null 2>&1"
+                                        "chown mongod:mongod /etc/mongod.conf 2>&1"
                                 ]
                             }
                         ]
