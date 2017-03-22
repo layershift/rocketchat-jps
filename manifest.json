@@ -78,7 +78,7 @@
                 "id": "configureRocketChat",
                 "onCall": [{
                         "executeShellCommands": [{
-                                "nodeType": "nodejs",
+                                "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
                                         "yum install -q -y epel-release > /dev/null 2>&1",
@@ -98,7 +98,7 @@
                         ]
                     }, {
                         "executeShellCommands": [{
-                                "nodeType": "nodejs",
+                                "nodeMission": "cp",
                                 "user": "jelastic",
                                 "commands": [
                                         "cd ~/ROOT/programs/server; npm --loglevel silent install > /dev/null 2>&1",
@@ -185,7 +185,7 @@
                 "id": "startRocketChat",
                 "onCall": [{
                         "executeShellCommands": [{
-                                "nodeId": "${nodes.nodejs[0].id}",
+                                "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
                                         "systemctl --quiet restart supervisord 2>&1",
@@ -199,7 +199,7 @@
                 "id": "stopRocketChat",
                 "onCall": [{
                         "executeShellCommands": [{
-                                "nodeId": "${nodes.nodejs[0].id}",
+                                "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
                                         "supervisorctl -c /opt/repo/supervisord.conf stop rocketchat 2>&1",
