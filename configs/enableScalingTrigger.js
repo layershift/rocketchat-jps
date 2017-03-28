@@ -21,7 +21,7 @@ oRespTurnOn = triger.addTrigger({
             {
                 "type": "ADD_NODE",
                 "customData": {
-                    "limit": 6,
+                    "limit": 4,
                     "count": 1,
                     "notify": true
                 }
