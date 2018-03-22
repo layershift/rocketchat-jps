@@ -96,7 +96,7 @@
                                         "yum install -q -y epel-release > /dev/null 2>&1",
                                         "yum install -q -y GraphicsMagick python-setuptools > /dev/null 2>&1",
                                         "easy_install -q supervisor 2>&1",
-                                        "npm install --loglevel silent -g inherits n > /dev/null 2>&1",
+                                        "npm install --loglevel silent -g inherits n fibers underscore source-map-support semver > /dev/null 2>&1",
                                         "wget -q -O /opt/repo/supervisord.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/supervisord 2>&1",
                                         "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rocketchat 2>&1",
                                         "chown -R jelastic: /opt/repo/supervisord.conf /opt/repo/supervisor.d",
@@ -113,7 +113,7 @@
                                 "nodeMission": "cp",
                                 "user": "jelastic",
                                 "commands": [
-                                        "cd ~/ROOT/programs/server; npm --loglevel silent install > /dev/null 2>&1",
+                                        "cd ~/ROOT; npm --loglevel silent install inherits n fibers underscore source-map-support semver > /dev/null 2>&1",
                                         "sed -i \"s/ENV_URL/${env.domain}/\" /opt/repo/supervisor.d/rocketchat.ini",
                                         "sed -i \"s/MONGO1IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
                                         "sed -i \"s/MONGO2IP/${nodes.nosqldb[1].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
