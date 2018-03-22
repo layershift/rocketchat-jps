@@ -128,7 +128,7 @@
                     "executeScript": [{
                             "description": "Enable AutoScaling trigger",
                             "type": "javascript",
-                            "script": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/enableScalingTrigger.js"
+                            "script": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/addTriggers.js"
                             }
                         ]
                     }
