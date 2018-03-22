@@ -71,6 +71,7 @@
                     "enableAutoScaling",
                     "preConfigureMongo",
                     "configureMongo",
+                    "stopRocketChat",
                     "startRocketChat"
             ]
         },
