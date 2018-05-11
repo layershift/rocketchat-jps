@@ -1,6 +1,7 @@
 {
     "jpsType": "install",
-    "name": "Rocket.Chat (2.10)",
+    "name": "Rocket.Chat (2.10)",i
+    "jpsVersion": "0.2",
     "id": "rocketchat",
     "type": "nodejs",
     "version": "2.10.5",
