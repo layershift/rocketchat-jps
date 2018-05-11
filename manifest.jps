@@ -95,7 +95,7 @@
                                         "yum remove -q -y epel-release > /dev/null 2>&1",
                                         "rm -rf /var/cache/yum",
                                         "yum install -q -y epel-release > /dev/null 2>&1",
-                                        "easy_install -q supervisor 2>&1",
+                                        "/usr/bin/easy_install -q supervisor 2>&1",
                                         "npm --loglevel silent install inherits n 2>&1",
                                         "wget -q -O /home/jelastic/supervisord.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/supervisord 2>&1",
                                         "mkdir /home/jelastic/supervisor.d; wget -q -O /home/jelastic/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rocketchat 2>&1",
