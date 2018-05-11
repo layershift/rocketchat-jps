@@ -267,7 +267,7 @@
                                 "user": "root",
                                 "commands": [
                                         "systemctl --quiet restart supervisord 2>&1",
-                                        "supervisorctl -c /home/jelastic/supervisord.conf restart rocketchat 2>&1"
+                                        "/usr/bin/supervisorctl -c /home/jelastic/supervisord.conf restart rocketchat 2>&1"
                                 ]
                             }
                         ]
@@ -280,7 +280,7 @@
                                 "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
-                                        "supervisorctl -c /home/jelastic/supervisord.conf stop rocketchat 2>&1",
+                                        "/usr/bin/supervisorctl -c /home/jelastic/supervisord.conf stop rocketchat 2>&1",
                                         "systemctl --quiet stop supervisord 2>&1"
                                 ]
                             }
