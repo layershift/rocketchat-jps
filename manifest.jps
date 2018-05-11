@@ -93,6 +93,8 @@
                                 "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
+                                        "mkdir /opt/repo",
+                                        "chown jelastic: /opt/repo",
                                         "yum install -q -y epel-release > /dev/null 2>&1",
                                         "yum install -q -y GraphicsMagick python-setuptools > /dev/null 2>&1",
                                         "easy_install -q supervisor 2>&1",
