@@ -2,19 +2,19 @@
 command=node main.js
 process_name=%(program_name)s
 numprocs=1
-directory=/home/jelastic/ROOT/
+directory=/opt/repo/ROOT/
 autostart=true
 autorestart=unexpected
 startsecs=1
 startretries=3
 user=jelastic
 environment=ROOT_URL=http://ENV_URL/,PORT=8080,MONGO_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/rocketchat?replicaSet=rs0&readPreference=nearest&w=majority",MONGO_OPLOG_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/local?replicaSet=rs0"
-stdout_logfile=/home/jelastic/log/rocket.stdout
+stdout_logfile=/opt/repo/log/rocket.stdout
 ;stdout_logfile_maxbytes=1MB
 ;stdout_logfile_backups=10
 ;stdout_capture_maxbytes=1MB
 ;stdout_events_enabled=false
-stderr_logfile=/home/jelastic/log/rocket.stderr
+stderr_logfile=/opt/repo/log/rocket.stderr
 ;stderr_logfile_maxbytes=1MB
 ;stderr_logfile_backups=10
 ;stderr_capture_maxbytes=1MB
