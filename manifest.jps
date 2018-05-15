@@ -1,77 +1,78 @@
 {
     "jpsType": "install",
-    "name": "Rocket.Chat (2.10)",
-    "jpsVersion": "0.2",
-    "id": "rocketchat",
-    "type": "nodejs",
-    "version": "2.10.5",
-    "logo": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/images/rocket.png",
-    "description": "Rocket.Chat is a Web Chat Server, developed in JavaScript, using the Meteor fullstack framework.<br><br>It is a great solution for communities and companies wanting to privately host their own chat service or for developers looking forward to build and evolve their own chat platforms.",
-        "nodes": [{
-            "nodeType": "nginx-dockerized",
-            "tag":"1.12.2",
-            "nodeGroup": "bl",
-            "extip": 0,
-            "count": 1,
-            "diskLimit":50,
-            "fixedCloudlets": 1,
-            "flexibleCloudlets": 6,
-            "displayName": "Nginx Proxy"
-        }, {
-            "nodeType": "nodejs",
-            "extip": 0,
-            "count": 2,
-            "fixedCloudlets": 1,
-            "flexibleCloudlets": 16,
-            "displayName": "Rocket Chat",
-            "tag": "8.9.4-npm",
-            "diskLimit":50,
-            "nodeGroup": "cp"
-        }, {
-            "nodeType": "mongodb",
-            "extip": false,
-            "count": 3,
-            "diskLimit":60,
-            "fixedCloudlets": 1,
-            "flexibleCloudlets": 16,
-            "displayName": "MongoDB Replica Set",
-            "nodeGroup": "nosqldb"
-        }],
-        "onAfterCloneNodes": {
-            "call": [
-                "applyNewCPNode"
-            ]
-        },
-        "onAfterRestartNode[nodeType:nodejs]": {
-            "call": [
-                "stopRocketChat",
-                "startRocketChat"
-            ]
-        },
-        "onAfterStart": {
-            "call": [
-                "startRocketChat"
-            ]
-        },
-        "onBeforeStop": {
-            "call": [
-                "stopRocketChat"
-            ]
-        },
-        "onAfterRemoveNode": {
-            "call": [
-                "reapplyCPNodes"
-            ]
+    "application": {
+        "name": "Rocket.Chat (0.54.0)",
+        "id": "rocketchat",
+        "type": "nodejs",
+        "version": "0.54.0",
+        "logo": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/images/rocket.png",
+        "description": "Rocket.Chat is a Web Chat Server, developed in JavaScript, using the Meteor fullstack framework.<br><br>It is a great solution for communities and companies wanting to privately host their own chat service or for developers looking forward to build and evolve their own chat platforms.",
+        "env": {
+            "topology": {
+                "engine": "nodejs4.5",
+                "nodes": [{
+                        "nodeType": "nginx",
+                        "extip": false,
+                        "count": 1,
+                        "fixedCloudlets": 1,
+                        "flexibleCloudlets": 8,
+                        "displayName": "Nginx Proxy",
+                        "nodeGroup": "bl"
+                    }, {
+                        "nodeType": "nodejs",
+                        "extip": false,
+                        "count": 2,
+                        "fixedCloudlets": 1,
+                        "flexibleCloudlets": 16,
+                        "displayName": "Rocket Chat (v0.54.0)",
+                        "nodeGroup": "cp"
+                    }, {
+                        "nodeType": "mongodb",
+                        "extip": false,
+                        "count": 3,
+                        "fixedCloudlets": 1,
+                        "flexibleCloudlets": 16,
+                        "displayName": "MongoDB Replica Set",
+                        "nodeGroup": "nosqldb"
+                    }
+                ],
+                "onAfterCloneNodes": {
+                    "call": [
+                        "applyNewCPNode"
+                    ]
+                }
+            },
+            "onAfterRestartNode[nodeType:nodejs]": {
+                "call": [
+                        "stopRocketChat",
+                        "startRocketChat"
+                ]
+            },
+            "onAfterStart": {
+                "call": [
+                        "startRocketChat"
+                ]
+            },
+            "onBeforeStop": {
+                "call": [
+                        "stopRocketChat"
+                ]
+            },
+            "onAfterRemoveNode": {
+                "call": [
+                        "reapplyCPNodes"
+                ]
+            }
         },
         "onInstall": {
             "call": [
-                "deployRocketChat",
-                "configureRocketChat",
-                "enableAutoScaling",
-                "preConfigureMongo",
-                "configureMongo",
-                "stopRocketChat",
-                "startRocketChat"
+                    "deployRocketChat",
+                    "configureRocketChat",
+                    "enableAutoScaling",
+                    "preConfigureMongo",
+                    "configureMongo",
+                    "stopRocketChat",
+                    "startRocketChat"
             ]
         },
         "procedures": [{
@@ -80,7 +81,7 @@
                         "deploy": [{
                                 "name": "Rocket Chat",
                                 "context": "ROOT",
-                                "archive": "http://jps.layershift.com/rocketchat/rocket.chat.tar.gz"
+                                "archive": "http://jps.layershift.com/rocketchat/rocketchat.tar.gz"
                             }
                         ]
                     }
@@ -92,16 +93,17 @@
                                 "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
-                                        "yum remove -q -y epel-release > /dev/null 2>&1",
-                                        "rm -rf /var/cache/yum",
                                         "yum install -q -y epel-release > /dev/null 2>&1",
-                                        "/usr/bin/easy_install -q supervisor 2>&1",
-                                        "npm --loglevel silent install inherits n 2>&1",
-                                        "wget -q -O /home/jelastic/supervisord.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/supervisord 2>&1",
-                                        "mkdir /home/jelastic/supervisor.d; wget -q -O /home/jelastic/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rocketchat 2>&1",
-                                        "chown -R nodejs: /home/jelastic/supervisord.conf /home/jelastic/supervisor.d",
+                                        "yum install -q -y GraphicsMagick python-setuptools > /dev/null 2>&1",
+                                        "easy_install -q supervisor 2>&1",
+                                        "npm install --loglevel silent -g inherits n fibers underscore source-map-support semver > /dev/null 2>&1",
+                                        "wget -q -O /opt/repo/supervisord.conf https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/supervisord 2>&1",
+                                        "mkdir /opt/repo/supervisor.d; wget -q -O /opt/repo/supervisor.d/rocketchat.ini https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/rocketchat 2>&1",
+                                        "chown -R jelastic: /opt/repo/supervisord.conf /opt/repo/supervisor.d",
                                         "wget -q -O /etc/init.d/supervisord https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/init 2>&1",
                                         "chmod +x /etc/init.d/supervisord",
+                                        "wget -q -O /etc/sysconfig/iptables https://raw.githubusercontent.com/layershift/rocketchat-jps/master/configs/iptables 2>&1",
+                                        "iptables-restore < /etc/sysconfig/iptables",
                                         "systemctl enable supervisord 2>&1"
                                 ]
                             }
@@ -111,11 +113,11 @@
                                 "nodeMission": "cp",
                                 "user": "jelastic",
                                 "commands": [
-                                        "cd ~/ROOT/programs/server; npm --loglevel silent install inherits n fibers underscore source-map-support semver > /dev/null 2>&1",
-                                        "sed -i \"s/ENV_URL/${env.domain}/\" /home/jelastic/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO1IP/${nodes.nosqldb[0].address}/g\" /home/jelastic/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO2IP/${nodes.nosqldb[1].address}/g\" /home/jelastic/supervisor.d/rocketchat.ini",
-                                        "sed -i \"s/MONGO3IP/${nodes.nosqldb[2].address}/g\" /home/jelastic/supervisor.d/rocketchat.ini"
+                                        "cd ~/ROOT; npm --loglevel silent install inherits n fibers underscore source-map-support semver > /dev/null 2>&1",
+                                        "sed -i \"s/ENV_URL/${env.domain}/\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO1IP/${nodes.nosqldb[0].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO2IP/${nodes.nosqldb[1].address}/g\" /opt/repo/supervisor.d/rocketchat.ini",
+                                        "sed -i \"s/MONGO3IP/${nodes.nosqldb[2].address}/g\" /opt/repo/supervisor.d/rocketchat.ini"
                                 ]
                             }
                         ]
@@ -267,7 +269,7 @@
                                 "user": "root",
                                 "commands": [
                                         "systemctl --quiet restart supervisord 2>&1",
-                                        "/usr/bin/supervisorctl -c /home/jelastic/supervisord.conf restart rocketchat 2>&1"
+                                        "supervisorctl -c /opt/repo/supervisord.conf restart rocketchat 2>&1"
                                 ]
                             }
                         ]
@@ -280,7 +282,7 @@
                                 "nodeMission": "cp",
                                 "user": "root",
                                 "commands": [
-                                        "/usr/bin/supervisorctl -c /home/jelastic/supervisord.conf stop rocketchat 2>&1",
+                                        "supervisorctl -c /opt/repo/supervisord.conf stop rocketchat 2>&1",
                                         "systemctl --quiet stop supervisord 2>&1"
                                 ]
                             }
@@ -292,4 +294,5 @@
         "success": {
             "text": "Success! Your Rocket Chat is ready!<br><br>You can start using your RocketChat by heading to <a href=\"${env.url}\">${env.url}</a><br><br>You can add Let's Encrypt SSL certificate right away with our add-on: <a href=\"https://github.com/jelastic-jps/lets-encrypt\">https://github.com/jelastic-jps/lets-encrypt</a><br><br>Read more about our platform here: <a href=\"https://www.layershift.com/jelastic\">https://www.layershift.com/jelastic</a><br><br>Our documentation:<br><a href=\"https://kb.layershift.com/\">https://kb.layershift.com/</a><br><a href=\"https://docs.jelastic.com/\">https://docs.jelastic.com/</a><br><br>Read more on RocketChat here: https://rocket.chat/features"
         }
+    }
 }
