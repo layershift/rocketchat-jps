@@ -8,7 +8,7 @@ autorestart=unexpected
 startsecs=1
 startretries=3
 user=jelastic
-environment=ROOT_URL=http://ENV_URL/,PORT=8080,MONGO_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/rocketchat?replicaSet=rs0&readPreference=nearest&w=majority",MONGO_OPLOG_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/local?replicaSet=rs0"
+environment=ROOT_URL=http://ENV_URL/,PORT=3000,MONGO_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/rocketchat?replicaSet=rs0&readPreference=nearest&w=majority",MONGO_OPLOG_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/local?replicaSet=rs0"
 stdout_logfile=/opt/repo/log/rocket.stdout
 ;stdout_logfile_maxbytes=1MB
 ;stdout_logfile_backups=10
