@@ -19,7 +19,7 @@
                         "displayName": "Nginx Proxy",
                         "nodeGroup": "bl"
                     }, {
-                        "nodeType": "nodejs",
+                        "nodeType": "nodejscartridge",
                         "extip": false,
                         "count": 2,
                         "fixedCloudlets": 1,
@@ -42,7 +42,7 @@
                     ]
                 }
             },
-            "onAfterRestartNode[nodeType:nodejs]": {
+            "onAfterRestartNode[nodeType:nodejscartridge]": {
                 "call": [
                         "stopRocketChat",
                         "startRocketChat"
