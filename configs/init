@@ -24,7 +24,7 @@ PIDFILE="/tmp/$prog.pid"
 start()
 {
         echo -n $"Starting $prog: "
-        daemon --user=jelastic $prog_bin -c /home/jelastic/supervisord.conf --pidfile $PIDFILE
+        daemon --user=jelastic $prog_bin -c /opt/repo/supervisord.conf --pidfile $PIDFILE
         [ -f $PIDFILE ] && success $"$prog startup" || failure $"$prog startup"
         echo
 }
