@@ -1,0 +1,4 @@
+export ROOT_URL=http://ENV_URL/
+export PORT=8080
+export MONGO_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/rocketchat?replicaSet=rs0&readPreference=nearest&w=majority"
+export MONGO_OPLOG_URL="mongodb://MONGO1IP,MONGO2IP,MONGO3IP/local?replicaSet=rs0"
