@@ -13,7 +13,6 @@
             "nodeGroup": "bl",
             "extip": 0,
             "count": 1,
-            "diskLimit":50,
             "fixedCloudlets": 1,
             "flexibleCloudlets": 6,
             "displayName": "Nginx Proxy"
@@ -25,13 +24,11 @@
             "flexibleCloudlets": 16,
             "displayName": "Rocket Chat",
             "tag": "8.12.0-npm",
-            "diskLimit":50,
             "nodeGroup": "cp"
         }, {
             "nodeType": "mongodb",
             "extip": false,
             "count": 3,
-            "diskLimit":60,
             "fixedCloudlets": 1,
             "flexibleCloudlets": 16,
             "displayName": "MongoDB Replica Set"
