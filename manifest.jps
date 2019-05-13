@@ -1,10 +1,10 @@
 {
     "jpsType": "install",
-    "name": "Rocket.Chat (0.74.3)",
+    "name": "Rocket.Chat",
     "jpsVersion": "0.2",
     "id": "rocketchat2",
     "type": "nodejs",
-    "version": "0.74.3",
+    "version": "latest",
     "logo": "https://raw.githubusercontent.com/layershift/rocketchat-jps/master/images/rocket.png",
     "description": "Rocket.Chat is a Web Chat Server, developed in JavaScript, using the Meteor fullstack framework.<br><br>It is a great solution for communities and companies wanting to privately host their own chat service or for developers looking forward to build and evolve their own chat platforms.",
         "nodes": [{
@@ -80,7 +80,7 @@
                         "deploy": [{
                                 "name": "Rocket Chat",
                                 "context": "ROOT",
-                                "archive": "http://jps.layershift.com/rocketchat/rocket.chat-0.74.3.tar.gz"
+                                "archive": "http://jps.layershift.com/rocketchat/rocket.chat-1.0.3.tar.gz"
                             }
                         ]
                     }
@@ -300,6 +300,6 @@
             }
         ],
         "success": {
-            "text": "Success! Your Rocket Chat is ready!\n\nYou can start using your RocketChat by heading to <a href=\"${env.url}\">${env.url}</a>\n\nYou can add Let's Encrypt SSL certificate right away with our add-on: <a href=\"https://github.com/jelastic-jps/lets-encrypt\">https://github.com/jelastic-jps/lets-encrypt</a>\n\nRead more about our platform here: <a href=\"https://www.layershift.com/jelastic\">https://www.layershift.com/jelastic</a>\n\nOur documentation:\n<a href=\"https://kb.layershift.com/\">https://kb.layershift.com/</a>\n<a href=\"https://docs.jelastic.com/\">https://docs.jelastic.com/</a>\n\nRead more on RocketChat here: https://rocket.chat/features"
+            "text": "Success! Your Rocket Chat is ready!\n\nYou can start using your RocketChat by heading to [${env.url}](${env.url})\n\nYou can add Let's Encrypt SSL certificate right away with our add-on: [https://github.com/jelastic-jps/lets-encrypt](https://github.com/jelastic-jps/lets-encrypt)\n\nRead more about our platform here: [https://www.layershift.com/jelastic](https://www.layershift.com/jelastic)\n\nOur documentation:\n\n[https://kb.layershift.com](https://kb.layershift.com)\n\n[https://docs.jelastic.com](https://docs.jelastic.com)\n\nRead more on RocketChat here: [https://rocket.chat/features](https://rocket.chat/features)"
         }
 }
