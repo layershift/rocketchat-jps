@@ -16,15 +16,15 @@ The JPS package will deploy [Rocket.Chat](https://github.com/RocketChat/Rocket.C
 
  Layer | Server          | Number of CTs <br/> by default | Cloudlets per CT <br/> (reserved/dynamic) | Options
 -------|-----------------| :-----------------------------:|:-----------------------------------------:|:-----:
-LB     |      Nginx      |           1                    |           1/8                             |   -
-AS     |   Node.js 4.5   |           2                    |           1/8                             |   -
-DB     |   MongoDB 3.4   |           3                    |           1/8                             |   -
+LB     | Nginx 1.12.2    |           1                    |           1/6                             |   -
+AS     | Node.js 8.12.0  |           2                    |           1/16                            |   -
+DB     | MongoDB 4.0.9   |           3                    |           1/16                            |   -
 
 * LB - Load balancer
 * AS - Application server
 * DB - Database
 
-**Rocket.Chat version**: 0.54.0
+**Rocket.Chat version**: 1.0.3     
 
 ## Automatic scaling
 
