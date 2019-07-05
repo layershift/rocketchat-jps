@@ -38,7 +38,7 @@ See more on autoscaling: https://docs.jelastic.com/automatic-vertical-scaling
 
 ## Differences from https://github.com/jelastic-jps/rocket-chat
 
-- deployed to NodeJS templates (horizontally scaled) vs. deployed to rocketchat docker image (single compute node)     
+- deployed to NodeJS templates (horizontally scaled) with Nginx load balancer in front vs. deployed to rocketchat docker image (single compute node)     
 - database backend is MongoDB ReplicaSet (3 MongoDB servers) vs. single MongoDB node      
 
 ## Deployment
