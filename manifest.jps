@@ -77,7 +77,7 @@
                         "deploy": [{
                                 "name": "Rocket Chat",
                                 "context": "ROOT",
-                                "archive": "http://jps.layershift.com/rocketchat/rocket.chat-1.0.3.tar.gz"
+                                "archive": "https://releases.rocket.chat/latest/download"
                             }
                         ]
                     }
